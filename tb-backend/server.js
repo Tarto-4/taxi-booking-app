@@ -1,6 +1,11 @@
-const express = require('express');
-const helmet = require('helmet');
-const path = require('path');
+import express from 'express';
+import helmet from 'helmet';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES modules don't have __dirname by default, so we need to create it
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 5000;
@@ -10,11 +15,10 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'none'"], // Enforce stricter defaults
-        imgSrc: ["'self'", "data:", "https://example.com"], // Add allowed image sources
-        scriptSrc: ["'self'", "'sha256-<hash-of-your-script>"], // Allow hashed inline scripts
-        styleSrc: ["'self'", "'sha256-<hash-of-your-style>"], // Allow hashed inline styles
-        // ... other directives as needed
+        defaultSrc: ["'none'"],
+        imgSrc: ["'self'", "data:", "https://example.com"],
+        scriptSrc: ["'self'", "'sha256-<hash-of-your-script>'"],
+        styleSrc: ["'self'", "'sha256-<hash-of-your-style>'"],
       },
     },
   })
