@@ -10,14 +10,23 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'"],
-        imgSrc: ["'self'", "http://localhost:5000"], // Allow images from localhost
-        scriptSrc: ["'self'"], // Allow scripts from the same origin
-        styleSrc: ["'self'"], // Allow styles from the same origin
+        defaultSrc: ["'none'"], // Enforce stricter defaults
+        imgSrc: ["'self'", "data:", "https://example.com"], // Add allowed image sources
+        scriptSrc: ["'self'", "'sha256-<hash-of-your-script>"], // Allow hashed inline scripts
+        styleSrc: ["'self'", "'sha256-<hash-of-your-style>"], // Allow hashed inline styles
+        // ... other directives as needed
       },
     },
   })
 );
+
+// Redirect HTTP to HTTPS (if applicable)
+app.use((req, res, next) => {
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https') {
+    return res.redirect(`https://${req.get('host')}${req.url}`);
+  }
+  next();
+});
 
 // Serve static files (including favicon)
 app.use(express.static(path.join(__dirname, 'public')));
