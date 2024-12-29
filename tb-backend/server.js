@@ -1,34 +1,33 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import userRoutes from './routes/userRoutes.js';
-import bookingRoutes from './routes/bookingRoutes.js';
-import dotenv from 'dotenv';
-
-// Load environment variables
-dotenv.config();
+const express = require('express');
+const helmet = require('helmet');
+const path = require('path');
 
 const app = express();
-const PORT = process.env.port || 5000;
+const PORT = 5000;
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
+// Use Helmet for security headers, including CSP
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: ["'self'", "http://localhost:5000"], // Allow images from localhost
+        scriptSrc: ["'self'"], // Allow scripts from the same origin
+        styleSrc: ["'self'"], // Allow styles from the same origin
+      },
+    },
+  })
+);
 
-// Database Connection
-mongoose.connect(process.env.MONGO_URI, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error('MongoDB connection error:', err));
+// Serve static files (including favicon)
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Routes
-app.use('/api/users', userRoutes);
-app.use('/api/bookings', bookingRoutes);
+// Define a basic route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-// Start server
+// Start the server
 app.listen(PORT, () => {
-	console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
