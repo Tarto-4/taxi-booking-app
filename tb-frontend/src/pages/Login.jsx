@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from '..//api/auth';
+import { login } from '../api/auth';
 
 const Login = () => {
 	const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -7,11 +7,11 @@ const Login = () => {
 		e.preventDefault();
 		try {
 			const response = await login(credentials);
-			localStorage..setItem('token', response.data.token);
+			localStorage.setItem('token', response.data.token);
 			alert('Login successful');
 			window.location.href = '/dashboard';
 		} catch (error) {
-			console.error('Login failed, try again' error);
+			console.error('Login failed, try again', error);
 		}
 	};
 
@@ -28,8 +28,8 @@ const Login = () => {
 		<input
 		type="password"
 		placeholder="password"
-		value{credentials.password}
-		onChange={(e) => setCredentials({ ..credentials, password: e.target.value })}
+		value={credentials.password}
+		onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
 		className="block p-2 border mt-2"
 		/>
 		<button type="submit" className="mt-4 p-2 bg-blue-500 text-white">Login</button>
