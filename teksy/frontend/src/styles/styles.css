@@ -1,114 +1,115 @@
-/* General styles */
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f5f5f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-/* Login Container */
-.login-container {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  padding: 30px;
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
-  position: relative;
 }
 
-/* Logo */
-.login-container img.logo {
-  width: 100px;
-  height: auto;
-  margin-bottom: 20px;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-/* Title */
-.login-container h1 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-/* Form */
-.login-container form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.login-container form input[type="email"],
-.login-container form input[type="password"] {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Flexbox for email and password */
-.flex-input {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* Buttons */
-.login-container form button {
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #2c98f0;
-  color: white;
-  transition: background-color 0.3s ease;
-}
-
-.login-container form button:hover {
-  background-color: #1a6fb3;
-}
-
-/* Register Button */
-.register-btn {
-  background-color: #34a853;
-  margin-top: 10px;
-}
-
-.register-btn:hover {
-  background-color: #2b8a43;
-}
-
-/* Links */
-.login-container a {
-  text-decoration: none;
-  color: #2c98f0;
-  font-size: 14px;
-  margin-top: 10px;
-  display: block;
-}
-
-.login-container a:hover {
-  color: #1a6fb3;
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
-  .login-container {
-    width: 90%;
-    padding: 20px;
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
-/* Implementing Logo */
-.logo-container {
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  color: #343a40;
+}
+
+.navbar {
+  background-color: #007bff;
+  color: #fff;
+  padding: 1rem;
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  width: 100px;
+  font-weight: bold;
+}
+
+.form-group input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 20px;
+  width: 100px;
 }
