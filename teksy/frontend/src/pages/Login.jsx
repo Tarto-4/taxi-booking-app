@@ -1,26 +1,49 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '@/hooks/useAuth';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { useToast } from '@/components/ui/use-toast';
+import React, { useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { login } = useAuth();
-  const { showToast } = useToast();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleLogin = () => {
-    login();
-    showToast('Logged in successfully!');
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const success = login(email, password);
+    if (success) {
+      navigate('/dashboard');
+    } else {
+      setError('Invalid email or password');
+    }
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Login</h1>
-      <Input type="text" placeholder="Username" />
-      <Input type="password" placeholder="Password" />
-      <Button onClick={handleLogin}>Login</Button>
-      <Link to="/register">Register</Link>
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button type="submit">Login</button>
+      </form>
     </div>
   );
 };
