@@ -6,7 +6,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'), // Set '@' as an alias for 'src'
+      '@': path.resolve(__dirname, 'src'),
     },
+  },
+  build: {
+    sourcemap: false, // Disable source maps
+  },
+  server: {
+    sourcemap: false, // Disable source maps for dev server
   },
 });
