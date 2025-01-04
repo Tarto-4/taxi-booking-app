@@ -1,8 +1,13 @@
-exports.authMiddleware = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token || !token.startsWith('mockToken')) {
-      return res.status(403).json({ message: 'Unauthorized' });
+// backend/src/middleware/authMiddleware.js
+const authMiddleware = (req, res, next) => {
+  // Mocked authentication logic
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || authHeader !== 'Bearer mock-token') {
+    return res.status(401).json({ message: 'Unauthorized' });
   }
-  req.user = { id: parseInt(token.split('-')[1], 10) };
-  next();
+
+  next(); // Proceed to the next middleware or route handler
 };
+
+module.exports = authMiddleware;
