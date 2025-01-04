@@ -5,14 +5,17 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  const login = (email, password) => {
-  if (email === "test@example.com" && password === "password123") { // Mock logic
-    const token = "mock-token";
-    localStorage.setItem("token", token);
-    setUser({ email });
+ const login = async (email, password) => {
+  try {
+    const response = await api.post('/login', { email, password });
+    const { token, user } = response.data;
+    localStorage.setItem('token', token);
+    setUser(user);
     return true;
+  } catch (err) {
+    console.error(err);
+    return false;
   }
-  return false; // Login failed
 };
 
   const logout = () => {
