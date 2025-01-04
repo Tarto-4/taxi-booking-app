@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { useNavigate, Link } from 'react-router-dom'; // Added `Link`
-import logo from '../assets/logo.png'; // Add logo image
+import { useNavigate, Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const Login = () => {
   const { login } = useAuth();
