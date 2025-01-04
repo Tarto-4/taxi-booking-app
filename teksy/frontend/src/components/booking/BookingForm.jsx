@@ -6,6 +6,27 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useBooking } from '@/hooks/useBooking';
 
+const handleBooking = async () => {
+  const token = localStorage.getItem('token');
+
+  const response = await fetch('http://localhost:5000/api/bookings', {
+      method: 'POST',
+      headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ pickup, destination, date }),
+  });
+
+  const data = await response.json();
+  if (data.success) {
+      alert('Ride booked successfully!');
+  } else {
+      alert(data.message);
+  }
+};
+
+
 const bookingSchema = z.object({
   pickup: z.string().min(1, 'Pickup location is required'),
   dropoff: z.string().min(1, 'Dropoff location is required'),
