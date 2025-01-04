@@ -1,44 +1,27 @@
-import { useState, createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-// Create an AuthContext to share authentication state across components
 const AuthContext = createContext();
 
-// Custom hook to use AuthContext
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
-
-// AuthProvider component to wrap your application
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // State to hold authenticated user info
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // State for auth status
+  const [user, setUser] = useState(null);
 
-  // Mock login function
   const login = (email, password) => {
-    // In a real-world app, replace this with an API call to authenticate
-    if (email === 'test@example.com' && password === 'password123') {
-      const userData = { id: 1, name: 'John Doe', email };
-      setUser(userData);
-      setIsAuthenticated(true);
-      return true; // Login success
-    } else {
-      return false; // Login failed
-    }
+    const token = `mock-token-${email}`; // Mock login logic
+    localStorage.setItem('token', token);
+    setUser({ email });
+    return true; // Replace with actual API call logic
   };
 
-  // Mock logout function
   const logout = () => {
+    localStorage.removeItem('token');
     setUser(null);
-    setIsAuthenticated(false);
   };
 
-  // AuthContext value
-  const value = {
-    user,
-    isAuthenticated,
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
+
+export const useAuth = () => useContext(AuthContext);
