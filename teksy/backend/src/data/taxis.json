@@ -1,0 +1,15 @@
+[
+    {
+      "id": 1,
+      "licensePlate": "XYZ-1234",
+      "driverName": "John Doe",
+      "availability": true
+    },
+    {
+      "id": 2,
+      "licensePlate": "ABC-5678",
+      "driverName": "Jane Smith",
+      "availability": false
+    }
+  ]
+  
