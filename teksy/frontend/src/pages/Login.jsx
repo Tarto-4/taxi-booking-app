@@ -1,58 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useAuth } from '../hooks/useAuth';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from "react-router-dom";
 import logo from '../assets/logo.png';
+import { loginUser } from "../services/api";
 
 const Login = () => {
-  const { login } = useAuth();
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [message, setMessage] = useState("");
 
-  const handleLogin = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = login(email, password);
-    if (success) {
-      navigate('/dashboard');
-    } else {
-      setError('Invalid email or password');
+    try {
+      const data = await loginUser(formData);
+      setMessage(data.message);
+      console.log("User Data:", data.user); // Save user data/token as needed
+    } catch (error) {
+      setMessage(error.message || "Login failed");
     }
   };
 
   return (
-    <div className="container">
-      <img src={logo} alt="Logo" className="logo" />
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <span className="icon">📧</span>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <span className="icon">🔒</span>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-          />
-        </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} />
         <button type="submit">Login</button>
-        <Link to="/register">
-          <button type="button" className="register-button">Register</button>
-        </Link>
       </form>
+      {message && <p>{message}</p>}
     </div>
   );
 };
 
 export default Login;
+
