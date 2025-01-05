@@ -1,26 +1,21 @@
-import axios from 'axios';
+import axios from "axios";
 
-const api = axios.create({
-  baseURL: 'http://localhost:5000/', // Replace with your backend base URL if different
-});
+const API_BASE_URL = "http://localhost:5000/api/auth";
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+export const registerUser = async (userData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/register`, userData);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
   }
-  return config;
-});
+};
 
-api.interceptors.response.use(
-  (response) => response.data,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
+export const loginUser = async (loginData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/login`, loginData);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
   }
-);
-
-export default api;
+};
