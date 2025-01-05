@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import BookingForm from './BookingForm';
+import BookingForm from '../components/booking/BookingForm';
 
 const Dashboard = () => {
     const [bookings, setBookings] = useState([]);
