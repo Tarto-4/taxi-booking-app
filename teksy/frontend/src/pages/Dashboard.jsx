@@ -1,31 +1,36 @@
-import React, { useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import BookingForm from './BookingForm';
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+    const [bookings, setBookings] = useState([]);
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
-  }, [user, navigate]);
+    useEffect(() => {
+        const fetchBookings = async () => {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch('http://localhost:5000/api/bookings', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = await response.json();
+            setBookings(data);
+        };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
+        fetchBookings();
+    }, []);
 
-  if (!user) return null; // Show nothing until user state is available
-
-  return (
-    <div className="container">
-      <h1>Dashboard</h1>
-      <p>Welcome, {user?.email || 'User'}!</p>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
-  );
+    return (
+        <div>
+            <h2>Dashboard</h2>
+            <BookingForm />
+            <h3>Your Bookings:</h3>
+            <ul>
+                {bookings.map(booking => (
+                    <li key={booking.id}>
+                        From {booking.pickUp} to {booking.destination} at {booking.time}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 };
 
 export default Dashboard;
