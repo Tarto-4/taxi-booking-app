@@ -1,20 +1,22 @@
-const bookings = []; // Temporary in-memory storage for bookings
+let bookings = require('../data/bookings.json');
 
-// Create a new booking
-const createBooking = (req, res) => {
-  const { userId, destination, date } = req.body;
-  if (!userId || !destination || !date) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
+exports.createBooking = (req, res) => {
+    const { pickUp, destination, time } = req.body;
+    const userId = req.user.id;
 
-  const newBooking = { id: bookings.length + 1, userId, destination, date };
-  bookings.push(newBooking);
-  res.status(201).json({ message: 'Booking created successfully', booking: newBooking });
+    const newBooking = {
+        id: bookings.length + 1,
+        userId,
+        pickUp,
+        destination,
+        time,
+    };
+    bookings.push(newBooking);
+    res.status(201).json(newBooking);
 };
 
-// Get all bookings
-const getBookings = (req, res) => {
-  res.status(200).json(bookings);
+exports.getBookings = (req, res) => {
+    const userId = req.user.id;
+    const userBookings = bookings.filter(booking => booking.userId === userId);
+    res.json(userBookings);
 };
-
-module.exports = { createBooking, getBookings };
