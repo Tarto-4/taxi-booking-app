@@ -1,10 +1,9 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth(); // Access authenticated user
-  return user ? children : <Navigate to="/login" replace />;
+  const token = localStorage.getItem('token');
+  return token ? children : <Navigate to="/" />;
 };
 
 export default ProtectedRoute;
