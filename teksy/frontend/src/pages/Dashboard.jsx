@@ -1,36 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { BookingForm } from '../components/booking/BookingForm';
+import React from 'react';
 
 const Dashboard = () => {
-    const [bookings, setBookings] = useState([]);
-
-    useEffect(() => {
-        const fetchBookings = async () => {
-            const token = localStorage.getItem('authToken');
-            const response = await fetch('http://localhost:5000/api/bookings', {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const data = await response.json();
-            setBookings(data);
-        };
-
-        fetchBookings();
-    }, []);
-
-    return (
-        <div>
-            <h2>Dashboard</h2>
-            <BookingForm />
-            <h3>Your Bookings:</h3>
-            <ul>
-                {bookings.map(booking => (
-                    <li key={booking.id}>
-                        From {booking.pickUp} to {booking.destination} at {booking.time}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+  return (
+    <div className="p-4">
+      <h1 className="text-3xl font-bold mb-4">Welcome to the Dashboard</h1>
+      <p className="text-gray-700">This is a protected route.</p>
+    </div>
+  );
 };
 
 export default Dashboard;
