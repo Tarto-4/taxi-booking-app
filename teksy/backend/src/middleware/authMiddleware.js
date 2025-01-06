@@ -1,13 +1,19 @@
-// backend/src/middleware/authMiddleware.js
-const authMiddleware = (req, res, next) => {
-  // Mocked authentication logic
-  const authHeader = req.headers.authorization;
+const jwt = require("jsonwebtoken");
 
-  if (!authHeader || authHeader !== 'Bearer mock-token') {
-    return res.status(401).json({ message: 'Unauthorized' });
+const authenticateToken = (req, res, next) => {
+  const token = req.headers["authorization"]?.split(" ")[1];
+  if (!token) {
+    return res.status(403).json({ message: "Access denied" });
   }
 
-  next(); // Proceed to the next middleware or route handler
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).json({ message: "Invalid token" });
+    }
+
+    req.user = user; // Attach user info to the request
+    next();
+  });
 };
 
-module.exports = authMiddleware;
+module.exports = authenticateToken;
