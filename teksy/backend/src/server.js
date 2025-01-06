@@ -1,8 +1,10 @@
-require("dotenv").config(); // Load environment variables
-const express = require('express');
-const authRoutes = require('./routes/authRoutes.js');
+import dotenv from 'dotenv';  // ES module import for dotenv
+dotenv.config(); // Load environment variables
+
+import express from 'express';
+import authRoutes from './routes/authRoutes.js';  // ES module import for routes
 import cors from 'cors';
-const bookingRoutes = require('./routes/bookingRoutes.js');
+import bookingRoutes from './routes/bookingRoutes.js';
 
 const app = express();
 
