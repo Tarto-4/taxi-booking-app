@@ -1,25 +1,33 @@
 require("dotenv").config(); // Load environment variables
-const express = require("express");
-const bodyParser = require("body-parser");
-
-const authRoutes = require("./routes/authRoutes");
-const authenticateToken = require("./middleware/authMiddleware");
+const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.use(bodyParser.json()); // Middleware to parse JSON request bodies
 
-// Middleware
-app.use(bodyParser.json());
+// Mock Database (replace with real DB connection)
+let users = [];
 
-// Routes
-app.use("/api/auth", authRoutes);
+// Register Route
+app.post('/api/auth/register', (req, res) => {
+  const { name, email, password } = req.body;
 
-// Protected route example
-app.get("/api/protected", authenticateToken, (req, res) => {
-  res.status(200).json({ message: "Welcome to the protected route!", user: req.user });
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required!' });
+  }
+
+  // Mock: Check if the user already exists
+  const userExists = users.some((user) => user.email === email);
+  if (userExists) {
+    return res.status(409).json({ message: 'User already exists!' });
+  }
+
+  // Mock: Save user
+  users.push({ name, email, password });
+  return res.status(201).json({ message: 'User registered successfully!' });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+// Server Start
+app.listen(5000, () => {
+  console.log('Server running on http://localhost:5000');
 });
