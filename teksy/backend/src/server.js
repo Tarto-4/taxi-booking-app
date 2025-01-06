@@ -1,10 +1,7 @@
-import dotenv from 'dotenv';  // ES module import for dotenv
-dotenv.config(); // Load environment variables
-
-import express from 'express';
-import authRoutes from './routes/authRoutes.js'; // Import CommonJS export
-import cors from 'cors';
-import bookingRoutes from './routes/bookingRoutes.js';
+const express = require('express');
+const cors = require('cors');
+const authRoutes = require('./routes/authRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
 const app = express();
 
@@ -18,4 +15,3 @@ app.use('/api/bookings', bookingRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
