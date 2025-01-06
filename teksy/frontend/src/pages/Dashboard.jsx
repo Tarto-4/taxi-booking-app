@@ -1,32 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import BookingForm from '../components/booking/BookingForm';
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null);
+    const [bookings, setBookings] = useState([]);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      window.location.href = '/login';
-    } else {
-      // Mock fetch user data
-      const fetchUser = async () => {
-        setUser({ name: 'Jane Doe' }); // Replace with actual API call if needed
-      };
-      fetchUser();
-    }
-  }, []);
+    useEffect(() => {
+        const fetchBookings = async () => {
+            const token = localStorage.getItem('authToken');
+            const response = await fetch('http://localhost:5000/api/bookings', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = await response.json();
+            setBookings(data);
+        };
 
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      {user ? (
-        <div className="text-center">
-          <h1 className="text-3xl font-bold">Welcome, {user.name}!</h1>
+        fetchBookings();
+    }, []);
+
+    return (
+        <div>
+            <h2>Dashboard</h2>
+            <BookingForm />
+            <h3>Your Bookings:</h3>
+            <ul>
+                {bookings.map(booking => (
+                    <li key={booking.id}>
+                        From {booking.pickUp} to {booking.destination} at {booking.time}
+                    </li>
+                ))}
+            </ul>
         </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-  );
+    );
 };
 
 export default Dashboard;
