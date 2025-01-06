@@ -1,34 +1,71 @@
-import React, { useState } from "react";
-import { registerUser } from "../services/api";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Register = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
-  const [message, setMessage] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
     try {
-      const data = await registerUser(formData);
-      setMessage(data.message);
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
+        name,
+        email,
+        password,
+      });
+      alert('Registration successful! Please login.');
     } catch (error) {
-      setMessage(error.message || "Registration failed");
+      alert('Registration failed. Please try again.');
     }
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" onChange={handleChange} />
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-        <button type="submit">Register</button>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form onSubmit={handleSubmit} className="bg-white p-8 shadow-lg rounded w-96">
+        <h2 className="text-2xl font-bold mb-4">Register</h2>
+        <input
+          type="text"
+          placeholder="Full Name"
+          className="w-full p-2 mb-4 border rounded"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full p-2 mb-4 border rounded"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full p-2 mb-4 border rounded"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          className="w-full p-2 mb-4 border rounded"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white p-2 w-full rounded"
+        >
+          Register
+        </button>
       </form>
-      {message && <p>{message}</p>}
     </div>
   );
 };
