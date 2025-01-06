@@ -6,7 +6,6 @@ import Login from './pages/Login';
 import Register from './pages/Register'; // Import Register component
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import './styles/styles.css';
 
 const App = () => (
   <Router>
