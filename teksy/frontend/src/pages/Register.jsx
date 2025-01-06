@@ -82,7 +82,6 @@ const Register = () => {
 };
 
 export default Register;
-import React, { useState } from 'react';
 
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
