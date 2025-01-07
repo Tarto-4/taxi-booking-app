@@ -18,6 +18,9 @@ const Dashboard = () => {
           <h3>Support</h3>
           <p>Need help? Contact our support team.</p>
         </div>
+        <button onClick={handleSignOut} className="btn">
+        Sign Out
+      </button>
       </div>
     </div>
   );
