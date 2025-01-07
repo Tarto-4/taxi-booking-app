@@ -1,17 +1,20 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Home = () => (
-  <div className="container">
-    <h1>Welcome to Teksy Taxi Booking</h1>
-    <nav>
-      <a href="/login">Login</a>
-      <a href="/register">Register</a>
-      <a href="/dashboard">Dashboard</a>
-    </nav>
-    <main>
-      <p>Your one-stop solution for seamless taxi bookings. Login or register to get started!</p>
-    </main>
-  </div>
-);
+const Home = () => {
+  return (
+    <div className="home-container">
+      <h1>Welcome to the Taxi Booking App</h1>
+      <div className="home-buttons">
+        <Link to="/login">
+          <button className="btn">Login</button>
+        </Link>
+        <Link to="/register">
+          <button className="btn">Register</button>
+        </Link>
+      </div>
+    </div>
+  );
+};
 
 export default Home;
