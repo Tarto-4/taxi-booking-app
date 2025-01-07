@@ -1,8 +1,11 @@
-exports.authMiddleware = (req, res, next) => {
-    const token = req.headers.authorization?.split(' ')[1];
-    if (!token || !token.startsWith('mockToken')) {
-        return res.status(403).json({ message: 'Unauthorized' });
-    }
-    req.user = { id: parseInt(token.split('-')[1], 10) };
-    next();
+// backend/src/middleware/authMiddleware.js
+module.exports = (req, res, next) => {
+  // Simulate authentication check
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+  // Mock user verification (replace with actual JWT logic)
+  req.user = { id: 1 }; // Add user data to request
+  next();
 };
