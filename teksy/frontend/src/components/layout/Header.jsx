@@ -6,7 +6,7 @@ import logo from './logo.png.webp'; // Assuming logo is stored in public/logo.pn
 const Header = () => (
     <header className="header">
         <div class="logo-container">
-    <img src="path/to/logo.png" alt="Logo" class="logo">
+    <img src="path/to/logo.png" alt="Logo" class="logo" />
 </div>
         <h1 className="title">Taxi Booking App</h1>
         <nav>
