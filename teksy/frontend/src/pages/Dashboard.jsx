@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -9,7 +9,6 @@ const Dashboard = () => {
     navigate("/login");
   };
 
-const Dashboard = () => {
   return (
     <div className="container">
       <h1>Welcome to Your Dashboard</h1>
@@ -27,10 +26,10 @@ const Dashboard = () => {
           <h3>Support</h3>
           <p>Need help? Contact our support team.</p>
         </div>
-        <button onClick={handleSignOut} className="btn">
+      </div>
+      <button onClick={handleSignOut} className="btn">
         Sign Out
       </button>
-      </div>
     </div>
   );
 };
