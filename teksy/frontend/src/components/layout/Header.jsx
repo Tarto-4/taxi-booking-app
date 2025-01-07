@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SignOutButton from './SignOutButton';
-import logo from './logo.png.webp'; // Assuming logo is stored in public/logo.png
 
 const Header = () => (
     <header className="header">
