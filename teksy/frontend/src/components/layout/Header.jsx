@@ -6,7 +6,7 @@ import logo from './logo.png.';
 const Header = () => (
     <header className="header">
         <div class="logo-container">
-    <img src="/logo.png" alt="Logo" class="logo" />
+    <img src={logo} alt="Logo" className="logo" />
 </div>
         <h1 className="title">Taxi Booking App</h1>
         <nav>
