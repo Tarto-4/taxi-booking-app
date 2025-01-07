@@ -1,29 +1,19 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    alert("You need to log in first.");
-    window.location.href = "login.html";
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:5000/api/dashboard", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      document.querySelector("#dashboard-content").innerHTML = `
-        <h1>Welcome, ${data.user.name}</h1>
-        <p>Email: ${data.user.email}</p>
-        <p>Your bookings: ${data.bookings.length || 0}</p>
-      `;
-    } else {
-      alert(data.message || "Failed to fetch dashboard data.");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    alert("An error occurred. Please try again later.");
-  }
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Dashboard</title>
+</head>
+<body>
+  <header>
+    <h1>Dashboard</h1>
+  </header>
+  <main>
+    <div id="dashboard-content">
+      Loading your dashboard...
+    </div>
+  </main>
+</body>
+</html>
