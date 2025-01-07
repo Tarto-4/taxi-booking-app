@@ -9,7 +9,6 @@ const Home = () => {
       <a href="register.html">Register</a>
       <a href="dashboard.html">Dashboard</a>
     </nav>
-  </header>
   <main>
     <p>Your one-stop solution for seamless taxi bookings. Login or register to get started!</p>
   </main>
