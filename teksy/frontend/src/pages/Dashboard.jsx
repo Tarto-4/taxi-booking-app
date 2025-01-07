@@ -1,4 +1,13 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
+const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
 const Dashboard = () => {
   return (
