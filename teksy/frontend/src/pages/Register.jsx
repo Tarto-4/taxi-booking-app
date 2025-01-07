@@ -1,75 +1,34 @@
-import React, { useState } from 'react';
-import '../styles/styles.css';
+import React, { useState } from "react";
 
 const Register = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.status === 201) {
-        setMessage('Registration successful! Please log in.');
-        setFormData({ name: '', email: '', password: '' });
-      } else {
-        setMessage(data.message || 'Registration failed.');
-      }
-    } catch (error) {
-      console.error('Error during registration:', error);
-      setMessage('An error occurred. Please try again.');
-    }
+    // Mock register logic
+    alert("Registered successfully!");
   };
 
   return (
-    <div className="container">
-      <h2>Register</h2>
-      {message && <p className="message">{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-        <button type="submit">Register</button>
+    <div className="auth-container">
+      <form onSubmit={handleRegister}>
+        <h2>Register</h2>
+        <input
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Enter password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit" className="btn">
+          Register
+        </button>
       </form>
     </div>
   );
