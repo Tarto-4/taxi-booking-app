@@ -1,4 +1,5 @@
 /* General Styles */
+/*
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -9,7 +10,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Header Styles */
 .header {
   display: flex;
   align-items: center;
@@ -50,7 +50,6 @@ nav a:hover {
   color: #007bff;
 }
 
-/* Container Styles */
 .container {
   max-width: 1200px;
   margin: 50px auto;
@@ -86,7 +85,6 @@ nav a:hover {
   background-color: #0056b3;
 }
 
-/* Dashboard Styles */
 .dashboard {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -116,7 +114,7 @@ nav a:hover {
 .dashboard-card p {
   color: #777;
 }
-
+*/
 
 
 body {
@@ -175,7 +173,7 @@ button:hover {
   padding: 10px 20px;
   text-transform: uppercase;
 }
-
+*/
 
 
 .container {
