@@ -1,14 +1,6 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-
-  const handleSignOut = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
   return (
     <div className="container">
       <h1>Welcome to Your Dashboard</h1>
@@ -27,9 +19,6 @@ const Dashboard = () => {
           <p>Need help? Contact our support team.</p>
         </div>
       </div>
-      <button onClick={handleSignOut} className="btn">
-        Sign Out
-      </button>
     </div>
   );
 };
