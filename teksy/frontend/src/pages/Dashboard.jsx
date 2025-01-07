@@ -1,36 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import BookingForm from '../components/booking/BookingForm';
+import React from 'react';
 
 const Dashboard = () => {
-    const [bookings, setBookings] = useState([]);
-
-    useEffect(() => {
-        const fetchBookings = async () => {
-            const token = localStorage.getItem('authToken');
-            const response = await fetch('http://localhost:5000/api/bookings', {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const data = await response.json();
-            setBookings(data);
-        };
-
-        fetchBookings();
-    }, []);
-
-    return (
-        <div>
-            <h2>Dashboard</h2>
-            <BookingForm />
-            <h3>Your Bookings:</h3>
-            <ul>
-                {bookings.map(booking => (
-                    <li key={booking.id}>
-                        From {booking.pickUp} to {booking.destination} at {booking.time}
-                    </li>
-                ))}
-            </ul>
+  return (
+    <div className="container">
+      <h1>Welcome to Your Dashboard</h1>
+      <p>Here you can manage your bookings and view updates.</p>
+      <div className="dashboard">
+        <div className="dashboard-card">
+          <h3>Your Bookings</h3>
+          <p>Manage your upcoming and past bookings.</p>
         </div>
-    );
+        <div className="dashboard-card">
+          <h3>Profile Settings</h3>
+          <p>Update your personal and contact information.</p>
+        </div>
+        <div className="dashboard-card">
+          <h3>Support</h3>
+          <p>Need help? Contact our support team.</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;
