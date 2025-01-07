@@ -6,15 +6,16 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import "./styles/styles.css";
 
-const App = () => (
-  <Router>
-    <Routes>
-      <Route path="home" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-    </Routes>
-  </Router>
-);
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;
