@@ -1,17 +1,24 @@
-// backend/src/controllers/bookingController.js
-exports.createBooking = (req, res) => {
-  const { destination, date } = req.body;
-  // Placeholder for creating booking logic
-  res.status(201).json({
-    message: 'Booking created successfully',
-    booking: { id: 1, destination, date }, // Replace with actual logic
-  });
-};
+exports.bookRide = async (req, res) => {
+  try {
+    const { pickup, destination, time } = req.body;
 
-exports.getBookings = (req, res) => {
-  // Placeholder for fetching bookings
-  res.status(200).json({
-    message: 'Bookings fetched successfully',
-    bookings: [{ id: 1, destination: 'Cape Town', date: '2025-01-15' }], // Replace with actual logic
-  });
+    if (!pickup || !destination || !time) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Simulate booking logic (replace with actual database logic)
+    const booking = {
+      userId: req.user.id, // Retrieved from authMiddleware
+      pickup,
+      destination,
+      time,
+      status: 'Pending',
+    };
+
+    // Respond with success
+    res.status(201).json({ message: 'Ride booked successfully', booking });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
