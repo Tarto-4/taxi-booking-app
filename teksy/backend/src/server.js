@@ -13,8 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/bookings', bookingRoutes);
+app.use('/routes/auth', authRoutes);
+app.use('/routes/bookings', bookingRoutes);
 
 // 404 Handler for undefined routes
 app.use((req, res, next) => {
