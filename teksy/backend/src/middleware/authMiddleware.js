@@ -1,11 +1,19 @@
-// backend/src/middleware/authMiddleware.js
-module.exports = (req, res, next) => {
-  // Simulate authentication check
-  const token = req.headers.authorization?.split(' ')[1];
+const jwt = require("jsonwebtoken");
+
+const authMiddleware = (req, res, next) => {
+  const token = req.header("Authorization")?.split(" ")[1]; // Bearer <token>
+
   if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return res.status(401).json({ message: "Access denied. No token provided." });
   }
-  // Mock user verification (replace with actual JWT logic)
-  req.user = { id: 1 }; // Add user data to request
-  next();
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    res.status(400).json({ message: "Invalid token." });
+  }
 };
+
+module.exports = authMiddleware;
