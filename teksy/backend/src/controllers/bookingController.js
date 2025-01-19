@@ -1,24 +1,17 @@
-exports.bookRide = async (req, res) => {
-  try {
-    const { pickup, destination, time } = req.body;
+exports.createBooking = (req, res) => {
+  const { pickupLocation, dropoffLocation, rideDate } = req.body;
 
-    if (!pickup || !destination || !time) {
-      return res.status(400).json({ message: 'All fields are required' });
-    }
-
-    // Simulate booking logic (replace with actual database logic)
-    const booking = {
-      userId: req.user.id, // Retrieved from authMiddleware
-      pickup,
-      destination,
-      time,
-      status: 'Pending',
-    };
-
-    // Respond with success
-    res.status(201).json({ message: 'Ride booked successfully', booking });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ message: 'Internal server error' });
+  if (!pickupLocation || !dropoffLocation || !rideDate) {
+    return res.status(400).json({ message: "All fields are required." });
   }
+
+  const booking = {
+    id: Date.now(),
+    pickupLocation,
+    dropoffLocation,
+    rideDate,
+    userId: req.user.id, // Assuming `authMiddleware` adds `user` to req
+  };
+
+  res.status(201).json({ message: "Booking created successfully.", booking });
 };
